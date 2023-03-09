@@ -1,36 +1,68 @@
-import { useFetch } from "../hooks/useFetch"
+import { useCounter, useFetch } from "../hooks";
+import { LoadingQuote } from "./LoadingQuote";
+import { Quote } from "./Quote";
+
 
 
 export const MultipleCustomHooks = () => {
   
-    const { data, isLoading, hasError } = useFetch('https://pokeapi.co/api/v2/pokemon/1');
+    const {counter, increment, decrement} = useCounter();
+    const { data, isLoading, hasError } = useFetch('https://pokeapi.co/api/v2/pokemon/' + counter );
     
-    const {name, id } = !!data && data;
+
+    const drivernext = () => {
+        increment();
+        console.log(counter);
+    }
+    const driverback = () => {
+        decrement();
+        console.log(counter);
+    }
+    
+    const {name, id, sprites} = data;
     console.log({ data, isLoading, hasError })
     
     return (
     <>
         <h1>Mundo POKEMON!!</h1>
         <hr/>
+        {/* <input
+            type="text"
+            className="form-control"
+            placeholder="Username"
+            name="username"
+            value={ id }
+            onChange={ }
+        />
+        <hr/> */}
 
         {
-            isLoading
+            sprites
             ?(
-                <div className="alert alert-info text-center">
-                    Loading...
-                </div>
-
+                <img src={sprites.front_default} />
             )
             :(
-                <blockquote className="blockquote text-end">
-                    <p className="mb-1">{name}</p>
-                    <footer className="blockquote-footer"> {id}  </footer> 
-                </blockquote>
-
+                <img src='sprites' />
             )
+                
+        } 
+        {
+            isLoading
+            ?
+                <LoadingQuote/>
+            :
+                <Quote name={name} id={id}/>
         }
-
-        <button className="btn btn-primary">Next Pokemon</button>
+              
+        
+        <button className="btn btn-primary"
+        onClick={drivernext}>
+            Next</button>
+        
+        <button className="btn btn-primary"
+        disabled={  isLoading }
+        onClick={driverback}>
+            Back</button>
         
 
     </>
