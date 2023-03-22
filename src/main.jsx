@@ -12,12 +12,13 @@ import { Padre } from './07-tarea-memo/Padre'
 //import { CounterApp } from './01-useState/CounterApp'
 //import { CounterWithCustomHook } from './01-useState/CounterWithCustomHook'
 //import { HooksApp } from './HooksApp'
+//import './08-useReducer/intro-reducer'
+import { TodoApp } from './08-useReducer/TodoApp'
 
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-    //<MultipleCustomHooks />
-    <Padre />
-  // </React.StrictMode>,
+   //<React.StrictMode>
+    <TodoApp />
+   // </React.StrictMode>,
 )
